@@ -10,26 +10,30 @@ function playRound(playerSelection, computerSelection) {
   const restPlayer = playerSelection.slice(1).toLowerCase();
   playerSelection = firstLetterPlayer + restPlayer;
 
+  //specify win and lose message
+  const winMessage = `You win! ${playerSelection} beats ${computerSelection}`;
+  const loseMessage = `You lose! ${computerSelection} beats ${playerSelection}`;
+
   //decide on winner
   if (playerSelection === computerSelection) {
     return `It's a tie! You both picked ${playerSelection}`;
   } else if (playerSelection === "Rock") {
     if (computerSelection === "Paper") {
-      return `You lose! ${computerSelection} beats ${playerSelection}`;
+      return loseMessage;
     } else {
-      return `You win! ${playerSelection} beats ${computerSelection}`;
+      return winMessage;
     }
   } else if (playerSelection === "Paper") {
     if (computerSelection === "Scissors") {
-      return `You lose! ${computerSelection} beats ${playerSelection}`;
+      return loseMessage;
     } else {
-      return `You win! ${playerSelection} beats ${computerSelection}`;
+      return winMessage;
     }
   } else if (playerSelection === "Scissors") {
     if (computerSelection === "Rock") {
-      return `You lose! ${computerSelection} beats ${playerSelection}`;
+      return loseMessage;
     } else {
-      return `You win! ${playerSelection} beats ${computerSelection}`;
+      return winMessage;
     }
   }
 }
