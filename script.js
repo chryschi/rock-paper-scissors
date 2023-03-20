@@ -33,3 +33,34 @@ function playRound(playerSelection, computerSelection) {
     }
   }
 }
+
+function game() {
+  let playerWins = 0;
+  let computerWins = 0;
+
+  for (let i = 0; i < 5; i++) {
+    const computerSelection = getComputerChoice();
+    const playerSelection = window.prompt(
+      "Choose Rock, Paper or Scissors: ",
+      "Rock"
+    );
+    const result = playRound(playerSelection, computerSelection);
+
+    console.log(result);
+
+    if (result.substring(4, 7) === "win") {
+      ++playerWins;
+    }
+    if (result.substring(4, 8) === "lose") {
+      ++computerWins;
+    }
+  }
+
+  if (playerWins === computerWins) {
+    console.log("It's a tie!");
+  } else if (playerWins > computerWins) {
+    console.log("You are the winner!");
+  } else {
+    console.log("The computer is the winner!");
+  }
+}
