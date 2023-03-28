@@ -68,3 +68,17 @@ function playRound(playerSelection, computerSelection) {
 //     console.log("The computer is the winner!");
 //   }
 // }
+
+// const rock = document.querySelectorAll("#rock");
+// const paper = document.querySelector("#paper");
+// const scissors = document.querySelector("#scissors");
+
+const playerDecisions = document.querySelectorAll("button");
+
+playerDecisions.forEach((button) =>
+  button.addEventListener("click", (e) => {
+    const result = playRound(e.target.id, getComputerChoice());
+    console.log(e.target.id);
+    console.log(result);
+  })
+);
