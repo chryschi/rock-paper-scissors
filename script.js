@@ -1,3 +1,5 @@
+const result = document.querySelector("#results");
+
 function getComputerChoice() {
   const randomInt = Math.floor(Math.random() * 3);
   const items = ["Rock", "Paper", "Scissors"];
@@ -13,27 +15,27 @@ function playRound(playerSelection, computerSelection) {
   //specify win and lose message
   const winMessage = `You win! ${playerSelection} beats ${computerSelection}`;
   const loseMessage = `You lose! ${computerSelection} beats ${playerSelection}`;
-
+  const tieMessage = `It's a tie! You both picked ${playerSelection}`;
   //decide on winner
   if (playerSelection === computerSelection) {
-    return `It's a tie! You both picked ${playerSelection}`;
+    result.textContent = tieMessage;
   } else if (playerSelection === "Rock") {
     if (computerSelection === "Paper") {
-      return loseMessage;
+      result.textContent = loseMessage;
     } else {
-      return winMessage;
+      result.textContent = winMessage;
     }
   } else if (playerSelection === "Paper") {
     if (computerSelection === "Scissors") {
-      return loseMessage;
+      result.textContent = loseMessage;
     } else {
-      return winMessage;
+      result.textContent = winMessage;
     }
   } else if (playerSelection === "Scissors") {
     if (computerSelection === "Rock") {
-      return loseMessage;
+      result.textContent = loseMessage;
     } else {
-      return winMessage;
+      result.textContent = winMessage;
     }
   }
 }
@@ -77,8 +79,6 @@ const playerDecisions = document.querySelectorAll("button");
 
 playerDecisions.forEach((button) =>
   button.addEventListener("click", (e) => {
-    const result = playRound(e.target.id, getComputerChoice());
-    console.log(e.target.id);
-    console.log(result);
+    playRound(e.target.id, getComputerChoice());
   })
 );
