@@ -1,4 +1,12 @@
 const result = document.querySelector("#results");
+const score = document.querySelector("#score");
+
+//score for each player
+let playerWins = 0;
+let computerWins = 0;
+//initalize score
+let currentScore = `${playerWins}:${computerWins}`;
+score.textContent = currentScore;
 
 function getComputerChoice() {
   const randomInt = Math.floor(Math.random() * 3);
@@ -6,37 +14,71 @@ function getComputerChoice() {
   return items[randomInt];
 }
 
-function playRound(playerSelection, computerSelection) {
-  //make playerSelection case-insensitive
-  const firstLetterPlayer = playerSelection.slice(0, 1).toUpperCase();
-  const restPlayer = playerSelection.slice(1).toLowerCase();
-  playerSelection = firstLetterPlayer + restPlayer;
+function showFinalWinner() {
+  if (playerWins === 5) {
+    result.textContent = `You won the game!`;
+  }
+  if (computerWins === 5) {
+    result.textContent = `The computer won the game! Better luck next time ;)`;
+  }
+}
 
-  //specify win and lose message
-  const winMessage = `You win! ${playerSelection} beats ${computerSelection}`;
-  const loseMessage = `You lose! ${computerSelection} beats ${playerSelection}`;
-  const tieMessage = `It's a tie! You both picked ${playerSelection}`;
-  //decide on winner
-  if (playerSelection === computerSelection) {
-    result.textContent = tieMessage;
-  } else if (playerSelection === "Rock") {
-    if (computerSelection === "Paper") {
-      result.textContent = loseMessage;
-    } else {
-      result.textContent = winMessage;
+function playRound(playerSelection, computerSelection) {
+  if (playerWins === 5 || computerWins === 5) {
+    //reset score and display it
+    playerWins = 0;
+    computerWins = 0;
+    result.textContent = `New Game!`;
+    currentScore = `${playerWins}:${computerWins}`;
+    score.textContent = currentScore;
+  } else {
+    //make playerSelection case-insensitive
+    const firstLetterPlayer = playerSelection.slice(0, 1).toUpperCase();
+    const restPlayer = playerSelection.slice(1).toLowerCase();
+    playerSelection = firstLetterPlayer + restPlayer;
+
+    //specify win and lose message
+    const winMessage = `You win! ${playerSelection} beats ${computerSelection}`;
+    const loseMessage = `You lose! ${computerSelection} beats ${playerSelection}`;
+    const tieMessage = `It's a tie! You both picked ${playerSelection}`;
+    //decide on winner
+    if (playerSelection === computerSelection) {
+      result.textContent = tieMessage;
+    } else if (playerSelection === "Rock") {
+      if (computerSelection === "Paper") {
+        result.textContent = loseMessage;
+        ++computerWins;
+
+        // getFinalWinner();
+      } else {
+        result.textContent = winMessage;
+        ++playerWins;
+
+        // getFinalWinner();
+      }
+    } else if (playerSelection === "Paper") {
+      if (computerSelection === "Scissors") {
+        result.textContent = loseMessage;
+        ++computerWins;
+
+        // getFinalWinner();
+      } else {
+        result.textContent = winMessage;
+        ++playerWins;
+      }
+    } else if (playerSelection === "Scissors") {
+      if (computerSelection === "Rock") {
+        result.textContent = loseMessage;
+        ++computerWins;
+      } else {
+        result.textContent = winMessage;
+        ++playerWins;
+      }
     }
-  } else if (playerSelection === "Paper") {
-    if (computerSelection === "Scissors") {
-      result.textContent = loseMessage;
-    } else {
-      result.textContent = winMessage;
-    }
-  } else if (playerSelection === "Scissors") {
-    if (computerSelection === "Rock") {
-      result.textContent = loseMessage;
-    } else {
-      result.textContent = winMessage;
-    }
+
+    currentScore = `${playerWins}:${computerWins}`;
+    score.textContent = currentScore;
+    showFinalWinner();
   }
 }
 
